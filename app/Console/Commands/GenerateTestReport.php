@@ -16,19 +16,70 @@ class GenerateTestReport extends Command
         $outputFile = $this->argument('output');
 
         if (!file_exists($inputFile)) {
-            $this->error("Input file does not exist: {$inputFile}");
+            $this->error("Fichier d'entrée introuvable : {$inputFile}");
             return 1;
         }
 
-        $xml = simplexml_load_file($inputFile);
-        $html = view('test-report', ['tests' => $xml])->render();
+        try {
+            $this->info("Chargement du fichier XML...");
+            $xml = simplexml_load_file($inputFile);
+        } catch (\Exception $e) {
+            $this->error("Erreur lors du chargement du fichier XML : " . $e->getMessage());
+            return 1;
+        }
 
-        $dompdf = new Dompdf();
-        $dompdf->loadHtml($html);
-        $dompdf->render();
-        file_put_contents($outputFile, $dompdf->output());
+        // Calcul des statistiques
+        $totalTests = count($xml->testcase);
+        $successCount = 0;
+        $failureCount = 0;
 
-        $this->info("PDF report generated: {$outputFile}");
+        $tests = [];
+        foreach ($xml->testcase as $testcase) {
+            $status = isset($testcase->failure) ? 'Échec' : 'Succès';
+            if ($status === 'Succès') {
+                $successCount++;
+            } else {
+                $failureCount++;
+            }
+
+            $tests[] = [
+                'name' => (string) $testcase['name'],
+                'status' => $status,
+                'time' => number_format((float) $testcase['time'], 3) . ' s'
+            ];
+        }
+
+        $statistics = [
+            'total' => $totalTests,
+            'success' => $successCount,
+            'failure' => $failureCount,
+        ];
+
+        // Rendu du HTML
+        $html = view('test-report', [
+            'tests' => $tests,
+            'statistics' => $statistics
+        ])->render();
+
+        // Génération du PDF
+        try {
+            $this->info("Génération du fichier PDF...");
+            $dompdf = new Dompdf();
+            $dompdf->loadHtml($html);
+            $dompdf->render();
+
+            $outputDir = dirname($outputFile);
+            if (!is_dir($outputDir)) {
+                mkdir($outputDir, 0755, true);
+            }
+
+            file_put_contents($outputFile, $dompdf->output());
+            $this->info("Rapport PDF généré avec succès : {$outputFile}");
+        } catch (\Exception $e) {
+            $this->error("Erreur lors de la génération du PDF : " . $e->getMessage());
+            return 1;
+        }
+
         return 0;
     }
 }
