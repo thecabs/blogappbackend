@@ -28,13 +28,14 @@ class GenerateTestReport extends Command
             return 1;
         }
 
-        // Calcul des statistiques
-        $totalTests = count($xml->testcase);
+        // Extraction des statistiques globales
+        $totalTests = 0;
         $successCount = 0;
         $failureCount = 0;
-
         $tests = [];
-        foreach ($xml->testcase as $testcase) {
+
+        foreach ($xml->xpath('//testcase') as $testcase) {
+            $totalTests++;
             $status = isset($testcase->failure) ? 'Échec' : 'Succès';
             if ($status === 'Succès') {
                 $successCount++;
