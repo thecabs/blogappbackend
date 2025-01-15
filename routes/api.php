@@ -51,9 +51,10 @@ Route::group (['middleware' => ['auth:sanctum']], function() {
      Route::delete('/comments/{id}',[CommentController::class, 'destroy']); // delete delete a comment
  
 
-      // Post 
+      // like
     Route::post('/posts/{id}/likes',[LikeController::class, 'likerOrUnlike']); // like or dislike back a post
    
- 
+    Route::delete('/posts/{post}/likes', [LikeController::class, 'likerOrUnlike']);
+
 
 });

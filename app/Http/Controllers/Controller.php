@@ -6,25 +6,25 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Storage;  // Add this import
 
 class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-
-    public function saveImage($image, $path ='public')
+    public function saveImage($image, $path = 'public')
     {
-        if(!$image){
+        if (!$image) {
             return null;
         }
 
-        $filename = time().'.png';
+        $filename = time() . '.png';
 
-        //save to 
-        \Storage::disk($path)->put($filename, base64_decode($image));
+        // Save to storage
+        Storage::disk($path)->put($filename, base64_decode($image));
 
-        // return the path
-        // Url is the base url exp: localhost:8000
-        return URL::to('/').'/storage/'.$path.'/'.$filename;
+        // Return the path
+        // Url is the base URL, e.g., localhost:8000
+        return URL::to('/') . '/storage/' . $path . '/' . $filename;
     }
 }
