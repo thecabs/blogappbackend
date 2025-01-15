@@ -28,25 +28,31 @@ class GenerateTestReport extends Command
             return 1;
         }
 
-        // Extraction des statistiques globales
+        // Extraction des statistiques
         $totalTests = 0;
         $successCount = 0;
         $failureCount = 0;
+        $totalTime = 0.0;
         $tests = [];
 
         foreach ($xml->xpath('//testcase') as $testcase) {
             $totalTests++;
             $status = isset($testcase->failure) ? 'Échec' : 'Succès';
+
             if ($status === 'Succès') {
                 $successCount++;
             } else {
                 $failureCount++;
             }
 
+            // Ajout du temps du test au total
+            $time = (float) $testcase['time'];
+            $totalTime += $time;
+
             $tests[] = [
                 'name' => (string) $testcase['name'],
                 'status' => $status,
-                'time' => number_format((float) $testcase['time'], 3) . ' s'
+                'time' => number_format($time, 3) . ' s'
             ];
         }
 
@@ -54,6 +60,7 @@ class GenerateTestReport extends Command
             'total' => $totalTests,
             'success' => $successCount,
             'failure' => $failureCount,
+            'totalTime' => number_format($totalTime, 3) . ' s'
         ];
 
         // Rendu du HTML

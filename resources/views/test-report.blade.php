@@ -19,6 +19,7 @@
         <li>Total des tests : {{ $statistics['total'] }}</li>
         <li>Succès : {{ $statistics['success'] }}</li>
         <li>Échecs : {{ $statistics['failure'] }}</li>
+        <li>Temps total des tests : {{ $statistics['totalTime'] }}</li>
     </ul>
 
     <!-- Tableau des résultats -->
