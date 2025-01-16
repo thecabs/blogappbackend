@@ -12,7 +12,7 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'content' => $this->faker->sentence,
+            'comment' => $this->faker->sentence,
             'post_id' => \App\Models\Post::factory(), // Associe un post existant ou généré
             'user_id' => \App\Models\User::factory(), // Associe un utilisateur existant ou généré
         ];

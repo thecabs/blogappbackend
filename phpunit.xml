@@ -30,7 +30,7 @@
         <env name="DB_HOST" value="127.0.0.1"/>
         <env name="DB_PORT" value="3306"/>
         <env name="DB_DATABASE" value="test_database"/>
-        <env name="DB_USERNAME" value="laravel"/>
+        <env name="DB_USERNAME" value="root"/>
         <env name="DB_PASSWORD" value=""/>
 
         <!-- Si tu préfères utiliser SQLite en mémoire, décommente la section ci-dessous -->

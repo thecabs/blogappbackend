@@ -29,19 +29,33 @@ class CommentControllerIntegrationTest extends TestCase
     }
 
     public function testUpdateComment()
-    {
-        $comment = Comment::factory()->create();
-    
-        $response = $this->put("/comments/{$comment->id}", [
-            'comment' => 'Updated comment',
-        ]);
-    
-        $response->assertStatus(200);
-        $this->assertDatabaseHas('comments', [
-            'id' => $comment->id,
-            'comment' => 'Updated comment',
-        ]);
-    }
+{
+    // Create a user and authenticate
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    // Create a comment belonging to the authenticated user
+    $comment = Comment::factory()->create(['user_id' => $user->id]);
+
+    // Send a PUT request to update the comment
+    $response = $this->putJson('/api/comments/' . $comment->id, [
+        'comment' => 'Updated comment',
+    ]);
+
+    // Assert the response status and structure
+    $response->assertStatus(200)
+    ->assertJson(['message' => 'Comment updated.']);
+
+
+             
+    // Verify the comment was updated in the database
+    $this->assertDatabaseHas('comments', [
+        'id' => $comment->id,
+        'comment' => 'Updated comment',
+    ]);
+}
+
+
     
     public function test_delete_comment()
     {
