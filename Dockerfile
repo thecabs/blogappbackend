@@ -6,7 +6,9 @@ RUN apt-get update && apt-get install -y \
     unzip \
     libpq-dev \
     default-mysql-client \
-    && docker-php-ext-install pdo pdo_mysql
+    zlib1g-dev \
+    libzip-dev \
+    && docker-php-ext-install pdo pdo_mysql zip
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
