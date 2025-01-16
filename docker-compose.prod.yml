@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   app:
-    image: laravel_app:latest
+    image: laravel_app_new:latest
     container_name: laravel_app_prod
     ports:
       - "80:8000"
