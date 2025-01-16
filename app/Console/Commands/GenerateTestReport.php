@@ -7,71 +7,86 @@ use Dompdf\Dompdf;
 
 class GenerateTestReport extends Command
 {
-    protected $signature = 'test:report {input} {output}';
-    protected $description = 'Convert XML test results to PDF';
+    protected $signature = 'test:report {unitTestResults} {integrationTestResults} {output} {--unit-time=} {--integration-time=}';
+    protected $description = 'Convert XML test results to a consolidated PDF report';
 
     public function handle()
     {
-        $inputFile = $this->argument('input');
+        $unitTestFile = $this->argument('unitTestResults');
+        $integrationTestFile = $this->argument('integrationTestResults');
         $outputFile = $this->argument('output');
 
-        if (!file_exists($inputFile)) {
-            $this->error("Fichier d'entrée introuvable : {$inputFile}");
-            return 1;
-        }
+        $unitTime = $this->option('unit-time') ?: 0;
+        $integrationTime = $this->option('integration-time') ?: 0;
 
-        try {
-            $this->info("Chargement du fichier XML...");
-            $xml = simplexml_load_file($inputFile);
-        } catch (\Exception $e) {
-            $this->error("Erreur lors du chargement du fichier XML : " . $e->getMessage());
-            return 1;
-        }
+        // Charger les résultats XML
+        $unitTests = $this->loadXmlResults($unitTestFile, 'Unitaires');
+        $integrationTests = $this->loadXmlResults($integrationTestFile, 'Intégration');
 
-        // Extraction des statistiques
-        $totalTests = 0;
-        $successCount = 0;
-        $failureCount = 0;
-        $totalTime = 0.0;
-        $tests = [];
-
-        foreach ($xml->xpath('//testcase') as $testcase) {
-            $totalTests++;
-            $status = isset($testcase->failure) ? 'Échec' : 'Succès';
-
-            if ($status === 'Succès') {
-                $successCount++;
-            } else {
-                $failureCount++;
-            }
-
-            // Ajout du temps du test au total
-            $time = (float) $testcase['time'];
-            $totalTime += $time;
-
-            $tests[] = [
-                'name' => (string) $testcase['name'],
-                'status' => $status,
-                'time' => number_format($time, 3) . ' s'
-            ];
-        }
-
+        // Fusionner les statistiques
         $statistics = [
-            'total' => $totalTests,
-            'success' => $successCount,
-            'failure' => $failureCount,
-            'totalTime' => number_format($totalTime, 3) . ' s'
+            'total' => $unitTests['total'] + $integrationTests['total'],
+            'success' => $unitTests['success'] + $integrationTests['success'],
+            'failure' => $unitTests['failure'] + $integrationTests['failure'],
+            'unitTime' => number_format($unitTime, 3) . ' s',
+            'integrationTime' => number_format($integrationTime, 3) . ' s',
+            'totalTime' => number_format($unitTime + $integrationTime, 3) . ' s',
         ];
 
-        // Rendu du HTML
+        // Fusionner les tests
+        $tests = array_merge($unitTests['tests'], $integrationTests['tests']);
+
+        // Génération du HTML
         $html = view('test-report', [
             'tests' => $tests,
             'statistics' => $statistics
         ])->render();
 
         // Génération du PDF
+        return $this->generatePdf($html, $outputFile);
+    }
+
+    private function loadXmlResults(string $filePath, string $category): array
+    {
         try {
-            $this->info("Génération du fichier PDF...");
+            $xml = simplexml_load_file($filePath);
+        } catch (\Exception $e) {
+            $this->error("Erreur lors du chargement du fichier XML : " . $e->getMessage());
+            throw $e;
+        }
+
+        $results = [
+            'total' => 0,
+            'success' => 0,
+            'failure' => 0,
+            'tests' => []
+        ];
+
+        foreach ($xml->xpath('//testcase') as $testcase) {
+            $results['total']++;
+            $status = isset($testcase->failure) ? 'Échec' : 'Succès';
+
+            if ($status === 'Succès') {
+                $results['success']++;
+            } else {
+                $results['failure']++;
+            }
+
+            $time = (float) $testcase['time'];
+
+            $results['tests'][] = [
+                'name' => "[{$category}] " . (string)$testcase['name'],
+                'status' => $status,
+                'time' => number_format($time, 3) . ' s'
+            ];
+        }
+
+        return $results;
+    }
+
+    private function generatePdf(string $html, string $outputFile): int
+    {
+        try {
             $dompdf = new Dompdf();
             $dompdf->loadHtml($html);
             $dompdf->render();
@@ -83,11 +98,10 @@ class GenerateTestReport extends Command
 
             file_put_contents($outputFile, $dompdf->output());
             $this->info("Rapport PDF généré avec succès : {$outputFile}");
+            return 0;
         } catch (\Exception $e) {
             $this->error("Erreur lors de la génération du PDF : " . $e->getMessage());
             return 1;
         }
-
-        return 0;
     }
 }
