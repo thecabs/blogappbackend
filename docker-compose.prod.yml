@@ -13,8 +13,8 @@ services:
       DB_HOST: "db"
       DB_PORT: 3306
       DB_DATABASE: "laravel"
-      DB_USERNAME: "root"
-      DB_PASSWORD: "root"
+      DB_USERNAME: "laravel_user"
+      DB_PASSWORD: "laravel_user"
     depends_on:
       db:
         condition: service_healthy
@@ -29,10 +29,12 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "laravel"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "root"
+      MYSQL_USER: "laravel_user"
+      MYSQL_PASSWORD: "laravel_user"
     volumes:
       - laravel_db_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/dpd-init.sql
+
     networks:
       - laravel_network
     healthcheck:
