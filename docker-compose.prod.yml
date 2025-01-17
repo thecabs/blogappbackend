@@ -33,7 +33,8 @@ services:
       MYSQL_PASSWORD: "laravel"
     volumes:
       - laravel_db_data:/var/lib/mysql
-      - ./init.sql:/docker-entrypoint-initdb.d/dbp-init.sql
+      - ./dbp-init.sql:/docker-entrypoint-initdb.d/dbp-init.sql
+
 
     networks:
       - laravel_network
