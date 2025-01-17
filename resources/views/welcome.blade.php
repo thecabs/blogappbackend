@@ -31,7 +31,7 @@
                 </div>
             @endif
             <div>
-    <h1>Bienvenue sur notre projet Laravel !!!</h1>
+    <h1>Bienvenue sur notre projet Laravel p!!</h1>
     <p>Le projet fonctionne correctement et le pipeline CI/CD est également opérationnel pour le groupe 7.</p>
 </div>
             <div class="max-w-7xl mx-auto p-6 lg:p-8">
