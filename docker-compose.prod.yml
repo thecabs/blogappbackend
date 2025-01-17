@@ -7,14 +7,14 @@ services:
     ports:
       - "80:8000"
     environment:
-      APP_ENV: production
-      APP_DEBUG: 'false'
-      DB_CONNECTION: mysql
-      DB_HOST: db
+      APP_ENV: "production"
+      APP_DEBUG: "false"
+      DB_CONNECTION: "mysql"
+      DB_HOST: "db"
       DB_PORT: 3306
-      DB_DATABASE: laravel
-      DB_USERNAME: root
-      DB_PASSWORD: root
+      DB_DATABASE: "laravel"
+      DB_USERNAME: "root"
+      DB_PASSWORD: "root"
     depends_on:
       db:
         condition: service_healthy
@@ -27,20 +27,20 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: laravel
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: "root"
+      MYSQL_DATABASE: "laravel"
+      MYSQL_USER: "root"
+      MYSQL_PASSWORD: "root"
     volumes:
       - laravel_db_data:/var/lib/mysql
     networks:
       - laravel_network
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "--silent"]
       interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
+      timeout: 10s
+      retries: 6
+      start_period: 40s
 
 volumes:
   laravel_db_data:
