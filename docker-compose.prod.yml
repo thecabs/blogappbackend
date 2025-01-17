@@ -29,13 +29,9 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: "root"
       MYSQL_DATABASE: "laravel"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "laravel"
     volumes:
       - laravel_db_data:/var/lib/mysql
       - ./dbp-init.sql:/docker-entrypoint-initdb.d/dbp-init.sql
-
-
     networks:
       - laravel_network
     healthcheck:
