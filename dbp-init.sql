@@ -1,4 +1,4 @@
-CREATE USER 'root'@'%' IDENTIFIED BY '';
+CREATE USER 'laravel'@'%' IDENTIFIED BY 'laravel';
 CREATE DATABASE IF NOT EXISTS laravel;
-GRANT ALL PRIVILEGES ON laravel.* TO 'root'@'%';
+GRANT ALL PRIVILEGES ON laravel.* TO 'laravel'@'%';
 FLUSH PRIVILEGES;
