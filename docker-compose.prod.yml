@@ -10,11 +10,11 @@ services:
       APP_ENV: "production"
       APP_DEBUG: "false"
       DB_CONNECTION: "mysql"
-      DB_HOST: "db"
+      DB_HOST: "db"                       # Correspond au nom du service MySQL
       DB_PORT: 3306
-      DB_DATABASE: "laravel"
-      DB_USERNAME: "root"
-      DB_PASSWORD: "root"
+      DB_DATABASE: "laravel_db"           # Correspond à MYSQL_DATABASE
+      DB_USERNAME: "laravel_user"         # Correspond à MYSQL_USER
+      DB_PASSWORD: "laravel_password"     # Correspond à MYSQL_PASSWORD
     depends_on:
       db:
         condition: service_healthy
@@ -27,10 +27,11 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: root_password  # Définir un mot de passe explicite pour root
-      MYSQL_DATABASE: laravel_db          # La base de données à créer
-      MYSQL_USER: laravel_user            # (Optionnel) Un utilisateur supplémentaire
-      MYSQL_PASSWORD: laravel_password 
+      MYSQL_ROOT_PASSWORD: root          # Mot de passe pour l'utilisateur root
+      MYSQL_DATABASE: laravel_db         # Nom de la base de données
+      MYSQL_USER: laravel_user           # Un utilisateur supplémentaire
+      MYSQL_PASSWORD: laravel_password   # Mot de passe pour cet utilisateur
+    command: --default-authentication-plugin=mysql_native_password
     volumes:
       - laravel_db_data:/var/lib/mysql
     networks:
@@ -40,7 +41,7 @@ services:
       interval: 10s
       timeout: 10s
       retries: 6
-      start_period: 40s
+      start_period: 60s  # Augmenté pour donner plus de temps à MySQL
 
 volumes:
   laravel_db_data:
