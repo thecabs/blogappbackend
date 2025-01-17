@@ -10,7 +10,7 @@
     </style>
 </head>
 <body>
-    <h1>Rapport des Tests Unitaires Laravel BLOG APP BACKEND</h1>
+    <h1>Rapport des Tests Blopp_app_Laravel gorupe 7</h1>
     <p>Généré le : {{ now()->format('d/m/Y H:i:s') }}</p>
 
     <!-- Statistiques -->
