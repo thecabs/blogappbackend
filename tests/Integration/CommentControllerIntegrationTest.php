@@ -12,59 +12,53 @@ class CommentControllerIntegrationTest extends TestCase
 {
     use RefreshDatabase;
 
+    // Teste la création d'un commentaire
     public function test_create_comment()
     {
         $user = User::factory()->create();
         $post = Post::factory()->create();
-        $token = $user->createToken('secret')->plainTextToken;
+        $token = $user->createToken('secret')->plainTextToken; // Génère un token pour l'utilisateur
 
         $response = $this->postJson('/api/posts/' . $post->id . '/comments', [
             'comment' => 'This is a test comment',
         ], [
-            'Authorization' => 'Bearer ' . $token,
+            'Authorization' => 'Bearer ' . $token, // Ajoute l'en-tête d'authentification
         ]);
 
-        $response->assertStatus(200)
-                 ->assertJson(['message' => 'Comment created.']);
+        $response->assertStatus(200) // Vérifie le code de statut
+                 ->assertJson(['message' => 'Comment created.']); // Vérifie le message JSON
     }
 
+    // Teste la mise à jour d'un commentaire
     public function testUpdateComment()
-{
-    // Create a user and authenticate
-    $user = User::factory()->create();
-    $this->actingAs($user);
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user); // Authentifie l'utilisateur
 
-    // Create a comment belonging to the authenticated user
-    $comment = Comment::factory()->create(['user_id' => $user->id]);
+        $comment = Comment::factory()->create(['user_id' => $user->id]); // Crée un commentaire lié à l'utilisateur
 
-    // Send a PUT request to update the comment
-    $response = $this->putJson('/api/comments/' . $comment->id, [
-        'comment' => 'Updated comment',
-    ]);
+        $response = $this->putJson('/api/comments/' . $comment->id, [
+            'comment' => 'Updated comment', // Nouveau contenu du commentaire
+        ]);
 
-    // Assert the response status and structure
-    $response->assertStatus(200)
-    ->assertJson(['message' => 'Comment updated.']);
+        $response->assertStatus(200) // Vérifie le code de statut
+                 ->assertJson(['message' => 'Comment updated.']); // Vérifie le message JSON
 
+        $this->assertDatabaseHas('comments', [ // Vérifie que la base de données a été mise à jour
+            'id' => $comment->id,
+            'comment' => 'Updated comment',
+        ]);
+    }
 
-             
-    // Verify the comment was updated in the database
-    $this->assertDatabaseHas('comments', [
-        'id' => $comment->id,
-        'comment' => 'Updated comment',
-    ]);
-}
-
-
-    
+    // Teste la suppression d'un commentaire
     public function test_delete_comment()
     {
         $user = User::factory()->create();
-        $comment = Comment::factory()->create(['user_id' => $user->id]);
+        $comment = Comment::factory()->create(['user_id' => $user->id]); // Crée un commentaire lié à l'utilisateur
 
         $response = $this->actingAs($user)->deleteJson('/api/comments/' . $comment->id);
 
-        $response->assertStatus(200)
-                 ->assertJson(['message' => 'Comment deleted.']);
+        $response->assertStatus(200) // Vérifie le code de statut
+                 ->assertJson(['message' => 'Comment deleted.']); // Vérifie le message JSON
     }
 }
