@@ -16,7 +16,8 @@ services:
       DB_USERNAME: root
       DB_PASSWORD: root
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - laravel_network
 
@@ -31,12 +32,18 @@ services:
       MYSQL_USER: root
       MYSQL_PASSWORD: root
     volumes:
-      - db_data_prod:/var/lib/mysql
+      - laravel_db_data:/var/lib/mysql
     networks:
       - laravel_network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
 
 volumes:
-  db_data_prod:
+  laravel_db_data:
 
 networks:
   laravel_network:
