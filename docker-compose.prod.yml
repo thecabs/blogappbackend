@@ -27,10 +27,10 @@ services:
     ports:
       - "3307:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: "root"
-      MYSQL_DATABASE: "laravel"
-      MYSQL_USER: "root"
-      MYSQL_PASSWORD: "root"
+      MYSQL_ROOT_PASSWORD: root_password  # Définir un mot de passe explicite pour root
+      MYSQL_DATABASE: laravel_db          # La base de données à créer
+      MYSQL_USER: laravel_user            # (Optionnel) Un utilisateur supplémentaire
+      MYSQL_PASSWORD: laravel_password 
     volumes:
       - laravel_db_data:/var/lib/mysql
     networks:
