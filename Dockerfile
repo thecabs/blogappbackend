@@ -1,6 +1,6 @@
 FROM php:8.1-fpm
 
-# Installer les outils et extensions nécessaires
+# Installation des outils et extensions nécessaires
 RUN apt-get update && apt-get install -y \
     git \
     unzip \
