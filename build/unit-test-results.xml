@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CLI Arguments" tests="14" assertions="39" errors="0" failures="0" skipped="0" time="1.653785">
+    <testsuite name="Tests\Feature\AuthControllerTest" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/AuthControllerTest.php" tests="3" assertions="14" errors="0" failures="0" skipped="0" time="1.256993">
+      <testcase name="test_user_can_register" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/AuthControllerTest.php" line="16" class="Tests\Feature\AuthControllerTest" classname="Tests.Feature.AuthControllerTest" assertions="6" time="1.121540"/>
+      <testcase name="test_user_can_login" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/AuthControllerTest.php" line="38" class="Tests\Feature\AuthControllerTest" classname="Tests.Feature.AuthControllerTest" assertions="6" time="0.094542"/>
+      <testcase name="test_user_can_logout" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/AuthControllerTest.php" line="63" class="Tests\Feature\AuthControllerTest" classname="Tests.Feature.AuthControllerTest" assertions="2" time="0.040911"/>
+    </testsuite>
+    <testsuite name="Tests\Feature\CommentControllerTest" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/CommentControllerTest.php" tests="3" assertions="6" errors="0" failures="0" skipped="0" time="0.114777">
+      <testcase name="test_user_can_create_comment" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/CommentControllerTest.php" line="17" class="Tests\Feature\CommentControllerTest" classname="Tests.Feature.CommentControllerTest" assertions="2" time="0.044397"/>
+      <testcase name="test_user_cannot_create_comment_on_nonexistent_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/CommentControllerTest.php" line="42" class="Tests\Feature\CommentControllerTest" classname="Tests.Feature.CommentControllerTest" assertions="2" time="0.028439"/>
+      <testcase name="test_user_can_update_comment" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/CommentControllerTest.php" line="64" class="Tests\Feature\CommentControllerTest" classname="Tests.Feature.CommentControllerTest" assertions="2" time="0.041940"/>
+    </testsuite>
+    <testsuite name="Tests\Unit\ExampleTest" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/ExampleTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.004118">
+      <testcase name="test_that_true_is_true" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/ExampleTest.php" line="12" class="Tests\Unit\ExampleTest" classname="Tests.Unit.ExampleTest" assertions="1" time="0.004118"/>
+    </testsuite>
+    <testsuite name="Tests\Feature\LikeControllerTest" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/LikeControllerTest.php" tests="4" assertions="12" errors="0" failures="0" skipped="0" time="0.147002">
+      <testcase name="user_can_like_a_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/LikeControllerTest.php" line="16" class="Tests\Feature\LikeControllerTest" classname="Tests.Feature.LikeControllerTest" assertions="3" time="0.044219"/>
+      <testcase name="user_can_unlike_a_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/LikeControllerTest.php" line="42" class="Tests\Feature\LikeControllerTest" classname="Tests.Feature.LikeControllerTest" assertions="3" time="0.039842"/>
+      <testcase name="user_cannot_like_a_non_existent_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/LikeControllerTest.php" line="72" class="Tests\Feature\LikeControllerTest" classname="Tests.Feature.LikeControllerTest" assertions="2" time="0.026868"/>
+      <testcase name="user_must_be_authenticated_to_like_or_unlike_a_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/LikeControllerTest.php" line="89" class="Tests\Feature\LikeControllerTest" classname="Tests.Feature.LikeControllerTest" assertions="4" time="0.036073"/>
+    </testsuite>
+    <testsuite name="Tests\Feature\PostControllerTest" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/PostControllerTest.php" tests="3" assertions="6" errors="0" failures="0" skipped="0" time="0.130894">
+      <testcase name="test_user_can_create_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/PostControllerTest.php" line="16" class="Tests\Feature\PostControllerTest" classname="Tests.Feature.PostControllerTest" assertions="2" time="0.054127"/>
+      <testcase name="test_user_can_update_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/PostControllerTest.php" line="38" class="Tests\Feature\PostControllerTest" classname="Tests.Feature.PostControllerTest" assertions="2" time="0.042007"/>
+      <testcase name="test_user_can_delete_post" file="/var/lib/jenkins/workspace/BlogAppBackend CICD/tests/Unit/PostControllerTest.php" line="63" class="Tests\Feature\PostControllerTest" classname="Tests.Feature.PostControllerTest" assertions="2" time="0.034759"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
