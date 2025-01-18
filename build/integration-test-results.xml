@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="CLI Arguments" tests="11" assertions="26" errors="0" failures="0" skipped="0" time="1.674799">
+    <testsuite name="Tests\Integration\AuthControllerIntegrationTest" file="/var/www/html/tests/Integration/AuthControllerIntegrationTest.php" tests="3" assertions="8" errors="0" failures="0" skipped="0" time="1.264151">
+      <testcase name="test_register_user" file="/var/www/html/tests/Integration/AuthControllerIntegrationTest.php" line="14" class="Tests\Integration\AuthControllerIntegrationTest" classname="Tests.Integration.AuthControllerIntegrationTest" assertions="3" time="1.150021"/>
+      <testcase name="test_login_user" file="/var/www/html/tests/Integration/AuthControllerIntegrationTest.php" line="28" class="Tests\Integration\AuthControllerIntegrationTest" classname="Tests.Integration.AuthControllerIntegrationTest" assertions="3" time="0.065976"/>
+      <testcase name="test_logout_user" file="/var/www/html/tests/Integration/AuthControllerIntegrationTest.php" line="44" class="Tests\Integration\AuthControllerIntegrationTest" classname="Tests.Integration.AuthControllerIntegrationTest" assertions="2" time="0.048154"/>
+    </testsuite>
+    <testsuite name="Tests\Integration\CommentControllerIntegrationTest" file="/var/www/html/tests/Integration/CommentControllerIntegrationTest.php" tests="3" assertions="7" errors="0" failures="0" skipped="0" time="0.159375">
+      <testcase name="test_create_comment" file="/var/www/html/tests/Integration/CommentControllerIntegrationTest.php" line="16" class="Tests\Integration\CommentControllerIntegrationTest" classname="Tests.Integration.CommentControllerIntegrationTest" assertions="2" time="0.068781"/>
+      <testcase name="testUpdateComment" file="/var/www/html/tests/Integration/CommentControllerIntegrationTest.php" line="33" class="Tests\Integration\CommentControllerIntegrationTest" classname="Tests.Integration.CommentControllerIntegrationTest" assertions="3" time="0.049127"/>
+      <testcase name="test_delete_comment" file="/var/www/html/tests/Integration/CommentControllerIntegrationTest.php" line="54" class="Tests\Integration\CommentControllerIntegrationTest" classname="Tests.Integration.CommentControllerIntegrationTest" assertions="2" time="0.041468"/>
+    </testsuite>
+    <testsuite name="Tests\Integration\LikeControllerIntegrationTest" file="/var/www/html/tests/Integration/LikeControllerIntegrationTest.php" tests="2" assertions="4" errors="0" failures="0" skipped="0" time="0.110574">
+      <testcase name="test_like_post" file="/var/www/html/tests/Integration/LikeControllerIntegrationTest.php" line="16" class="Tests\Integration\LikeControllerIntegrationTest" classname="Tests.Integration.LikeControllerIntegrationTest" assertions="2" time="0.059507"/>
+      <testcase name="test_dislike_post" file="/var/www/html/tests/Integration/LikeControllerIntegrationTest.php" line="31" class="Tests\Integration\LikeControllerIntegrationTest" classname="Tests.Integration.LikeControllerIntegrationTest" assertions="2" time="0.051068"/>
+    </testsuite>
+    <testsuite name="Tests\Integration\PostControllerIntegrationTest" file="/var/www/html/tests/Integration/PostControllerIntegrationTest.php" tests="3" assertions="7" errors="0" failures="0" skipped="0" time="0.140698">
+      <testcase name="test_create_post" file="/var/www/html/tests/Integration/PostControllerIntegrationTest.php" line="15" class="Tests\Integration\PostControllerIntegrationTest" classname="Tests.Integration.PostControllerIntegrationTest" assertions="3" time="0.046209"/>
+      <testcase name="test_get_all_posts" file="/var/www/html/tests/Integration/PostControllerIntegrationTest.php" line="31" class="Tests\Integration\PostControllerIntegrationTest" classname="Tests.Integration.PostControllerIntegrationTest" assertions="2" time="0.054890"/>
+      <testcase name="test_delete_post" file="/var/www/html/tests/Integration/PostControllerIntegrationTest.php" line="43" class="Tests\Integration\PostControllerIntegrationTest" classname="Tests.Integration.PostControllerIntegrationTest" assertions="2" time="0.039599"/>
+    </testsuite>
+  </testsuite>
+</testsuites>
