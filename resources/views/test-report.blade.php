@@ -92,7 +92,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Rapport des Tests - Blog_app_Laravel</h1>
+        <h1>Rapport des Test pipeline - Blog_app_Laravel </h1>
         <p>Groupe 7 | Généré le : {{ now()->format('d/m/Y H:i:s') }}</p>
 
         <!-- Statistiques -->
