@@ -15,6 +15,6 @@ class CommentFactory extends Factory
             'comment' => $this->faker->sentence,
             'post_id' => \App\Models\Post::factory(), // Associe un post existant ou généré
             'user_id' => \App\Models\User::factory(), // Associe un utilisateur existant ou généré
-        ];
+         ];
     }
 }

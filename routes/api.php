@@ -56,5 +56,5 @@ Route::group (['middleware' => ['auth:sanctum']], function() {
    
     Route::delete('/posts/{post}/likes', [LikeController::class, 'likerOrUnlike']);
 
-
+   
 });
