@@ -104,6 +104,28 @@
                 }
             }
         }
+stage('Créer une branche et pousser') {
+            when {
+                expression { currentBuild.result == null || currentBuild.result == 'SUCCESS' }
+            }
+            steps {
+                script {
+                    def newBranch = "feature-${BUILD_NUMBER}"
+
+                    sh 'git config --global user.email "jaurescabreldongmo@gmail.com"'
+                    sh 'git config --global user.name "thecabs"'
+
+                    sh "git checkout -b ${newBranch}"
+                    sh "git add ."
+                    sh "git commit -m \"Pipeline OK : Tests et rapport généré\""
+
+                    withCredentials([string(credentialsId: 'github-pat', variable: 'GITHUB_TOKEN')]) {
+                        sh "git push https://${GITHUB_TOKEN}@github.com/thecabs/blogappbackend.git ${newBranch}"
+                    }
+                }
+            }
+        }
+
 
         stage('Construire l\'image Docker') {
             steps {
